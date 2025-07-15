@@ -23,7 +23,7 @@ var userStates = make(map[int64]string)
 var tempTickets = make(map[int64]*TempTicket)
 
 var engineerIDs = []int64{
-	//452639799,
+	452639799,
 	//1222964929, // основной инженер/админ
 	// другие ID добавь сюда
 }
@@ -220,7 +220,12 @@ func main() {
 		if update.Message.IsCommand() {
 			switch update.Message.Command() {
 			case "start":
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Выберите действие:")
+				welcome := fmt.Sprintf(
+					"👋 Добро пожаловать в IT-Desk Astana!\n\n" +
+						"Здесь вы можете быстро создать заявку на ремонт или настройку техники.\n\n" +
+						"Выберите действие ниже 👇",
+				)
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, welcome)
 				msg.ReplyMarkup = mainMenuKeyboard()
 				bot.Send(msg)
 				userStates[userID] = ""
